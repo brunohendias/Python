@@ -1,7 +1,9 @@
 """
 Feito por Bruno Henrique
       10/10/2018 
-Caso fassa alguma alteração poste no github e mande o link
+Caso faça alguma alteração poste no github e mande o link
+github: https://www.github.com/brunohendias
+
 Alterado dia: 19/04/2019
 """
 

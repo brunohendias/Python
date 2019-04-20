@@ -1,75 +1,75 @@
 """
 Feito por Bruno Henrique
       09/10/2018 
-Caso fassa alguma alteração poste no github e mande o link 
+Caso fassa alguma alteração poste no github e mande o link
+github: https://github.com/brunohendias
+
+Alterado dia 19/04/2019
 """
 from random import *
-nome = input(" Antes de começarmos qual seu nome? ")
 print("~="*38)
+nome = input(" Antes de começarmos qual seu nome? ")
 print(" Seja bem vindo %s ao Bingo! Sera hoje o seu dia de sorte?!"%nome)
 print(" Aperte Enter para sortear\n Digite sair para sair\n digite cartela para ver a sua cartela\n Digite sorteados para ver os numeros sorteados")
 print("~="*38)
-def trocaCartela():
-    global formato
+
+def cartelaPronta():
     global cartela
-    formato, cartela = [], []    
+    cartela = []
     for tot in range(15):
         num = randint(0, 50)        
         while num in cartela:
             num = randint(0,50)
         cartela.append(num)
-    formato = str(sorted(cartela)).strip("[]")   
-    print(" Nova cartela Boa Sorte!! {}\n".format(formato))
-def cartela():
-    global cartela
-    global formato
-    cartela = []
-    tot = len(cartela)
-    for tot in range(15):
-        num = randint(0, 50)        
-        while num in cartela:           
-            num = randint(0,50)
-        cartela.append(num)
-    formato = str(sorted(cartela)).strip("[]")
-    print(" Essa é a sua cartela Boa Sorte!! {}\n".format(formato))
-    nova = int(input(" Para trocar a cartelas digite 1 / continuar digite 2: "))
-    while nova == 1:
-        trocaCartela()
-        nova = int(input(" Para trocar a cartela digite 1: "))
+    
+def criaCartela():
+    cartelaPronta()
+    print(" Essa é a sua cartela Boa Sorte!! {}\n".format(cartela))
+    novaCartela = int(input(" Para trocar a cartelas digite 1 / continuar digite 2: "))
+    while novaCartela == 1:
+        print("")
+        cartelaPronta()
+        print(" Nova cartela: {}".format(cartela))
+        print("")
+        novaCartela = int(input(" Para trocar a cartela digite 1: "))
     print(" Numeros sorteados abaixo\n")
 def sorteio():
-    acerto = 0 
-    global nume
+    acerto = 0
     sortiado = []
-    while True:        
-        nume = randint(0, 50)
-        while nume in sortiado:
-            nume = randint(0,50)
-        sortiado.append(nume)
-        forma = str(sortiado).strip("[]")
-        numero = input(" Sortiar mais um numero? ")
-        print("")
+    num = randint(0, 50)
+    sortiado.append(num)
+    print(" %d"%num)
+    while True:
+        numero = input(" Sortiar mais um numero? ").lower()
         if numero == "sair":
-            print(" Ate a proxima voce acertou %d numeros"%acerto)
+            print(" Obrigado por jogar voute sempre")
             break
+        elif numero == "" or numero == "sim":
+            num = randint(0, 50)
+            while num in sortiado:
+                num = randint(0,50)
+            if num in cartela:
+                acerto += 1
+            sortiado.append(num)
+            print(" %d"%num)
         elif numero == "sorteados":
-            print(" Numeros ja sorteados: {}".format(forma))
+            formato = str(sorted(sortiado)).strip("[]")
+            print("\n Numeros ja sorteados: {}".format(formato))
             print("")
         elif numero == "cartela":
-            print(" Cartela: {}".format(formato))
+            print("\n Cartela: {}".format(cartela))
             print("")
         else:
-            print(" %d"%nume)
+            print(" %d"%num)
             print("")
-        if nume in cartela:
-            acerto += 1
-        elif acerto == 10:
+        
+        if acerto == 10 and acerto < 11:
             print(" OPA CORRE CORRE QUE TA COMPLETANDO\n")
-        elif acerto == 15:
+        if acerto == 15:
             print(" BINGO !!! Parabens %s VOCE VENCEU !!!\n"%nome)
-            break        
+            break
     
 def main():
-    cartela()
+    criaCartela()
     sorteio()
 main()
