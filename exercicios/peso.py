@@ -6,3 +6,4 @@ if sexo == "homem":
 elif sexo == "mulher":
     peso = (62.1*altura)-44.7
     print("Voce mede %.2f e seu peso ideal e %.2f"%(altura, peso))
+
