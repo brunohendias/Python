@@ -28,16 +28,16 @@ def sorteioMega():
         mega.append(numero)
     return mega
         
-def resultado(mega, bilhete, existe, erros, tot_erro):
+def resultado(mega, bilhete, existe, erros, tot_erro, acerto):
     mega = str(sorted(mega)).strip("[]")
     bilhete = str(sorted(bilhete)).strip("[]")
     existe = str(sorted(existe)).strip("[]")
     erros = str(sorted(erros)).strip("[]")
     
-    if tot_erro == 0:
+    if acerto == 6:
         print("")
         print(" Parabens %s acabou de Ganhar %s \n"%(nome, premio))
-    elif tot_erro <= 3:
+    elif acerto >= 3:
         print("")
         print(" Passou perto em %s na proxima voce ganha\n"%nome)
     else:
@@ -48,7 +48,7 @@ def resultado(mega, bilhete, existe, erros, tot_erro):
     print("~="*35)
     
 def bilhetePronto():
-    tot_erro = 0
+    tot_erro, acerto = 0, 0
     existe, erros, bilhete = [], [], []
     sorteioMega()
     
@@ -59,15 +59,15 @@ def bilhetePronto():
         bilhete.append(v)
         if v in mega:
             existe.append(v)
+            acerto += 1
         else:
             erros.append(v)
             tot_erro += 1
             
-    resultado(mega, bilhete, existe, erros, tot_erro)       
+    resultado(mega, bilhete, existe, erros, tot_erro, acerto)       
     
 def montarBilhete():
-    cont = 0
-    tot_erro = 0
+    tot_erro, cont, acerto = 0, 0, 0
     existe, erros, bilhete = [], [], []
 
     tot_aposta = int(input("\n Quantos numeros de 6 a 15: "))
@@ -95,12 +95,13 @@ def montarBilhete():
         bilhete.append(num)
         if num in mega:
             existe.append(num)
+            acerto += 1
         else:
             erros.append(num)
             tot_erro += 1
         cont += 1
 
-    resultado(mega, bilhete, existe, erros, tot_erro)    
+    resultado(mega, bilhete, existe, erros, tot_erro, acerto)    
 
 def escolha():
     print("\n Montar bilhete digite 1\n bilhete pronto digite 2 \n")
