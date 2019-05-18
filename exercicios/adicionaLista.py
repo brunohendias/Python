@@ -16,9 +16,10 @@ if pergunta == "s":
     continua = True
     while continua:
         try:
-            posicao = int(input("Alterar o nome de qual posição? "))
+            nome = int(input("Nome a ser alterado: "))
+            nomes.remove(nome)
             nome = input("Novo nome: ")
-            nomes[posicao] = nome
+            nomes.append(nome)
         except:
             continua = True        
         print(nomes[:-1])

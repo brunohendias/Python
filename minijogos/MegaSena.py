@@ -13,8 +13,8 @@ from random import *
 premio = "210 Milhões"
 print("~="*35)
 nome = input(" Para darmos inicio ao jogo me diga qual seu nome: ")
-print(" Bem vindo %s ao sorteio da Mega Sena da virada!!\n Sera hoje o seu dia de sorte?!"%nome)
-print(" Premio acumulado em %s"%premio)
+print(f" Bem vindo {nome} ao sorteio da Mega Sena da virada!!\n Sera hoje o seu dia de sorte?!")
+print(" Premio acumulado em {premio}")
 print(" Digite um numero por vez de 0 a 60")
 print(" Para alterar algum numero digite: 98")
 print("~="*35)
@@ -36,15 +36,15 @@ def resultado(mega, bilhete, existe, erros, tot_erro, acerto):
     
     if acerto == 6:
         print("")
-        print(" Parabens %s acabou de Ganhar %s \n"%(nome, premio))
+        print(f" Parabens {nome} acabou de Ganhar {premio} \n")
     elif acerto >= 3:
         print("")
-        print(" Passou perto em %s na proxima voce ganha\n"%nome)
+        print(f" Passou perto em {nome} na proxima voce ganha\n")
     else:
         print("")
         print(" Pratique mais, passou longe \n")
         
-    print(" Resultado da mega sena: {}\n bilhete completo: {}\n Numeros acertado: {}\n Numeros errado: {}\n Total de erros: {}\n".format(mega, bilhete, existe, erros, tot_erro))
+    print(f" Resultado da mega sena: {mega}\n bilhete completo: {bilhete}\n Numeros acertado: {existe}\n Numeros errado: {erros}\n Total de erros: {tot_erro}\n")
     print("~="*35)
     
 def bilhetePronto():

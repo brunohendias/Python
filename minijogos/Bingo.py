@@ -10,7 +10,7 @@ Alterado dia 26/04/2019
 from random import *
 print("~="*38)
 nome = input(" Antes de começarmos qual seu nome? ")
-print(" Seja bem vindo %s ao Bingo! Sera hoje o seu dia de sorte?!"%nome)
+print(f" Seja bem vindo {nome} ao Bingo! Sera hoje o seu dia de sorte?!")
 print(" Aperte Enter para sortear\n digite sair para sair\n digite cartela para ver a sua cartela\n Digite sorteados para ver os numeros sorteados")
 print("~="*38)
 
@@ -26,12 +26,12 @@ def cartelaPronta():
 
 def criaCartela():
     cartelaPronta()
-    print(" Essa é a sua cartela Boa Sorte!! {}\n".format(cartela))
-    novaCartela = input(" Para trocar a cartelas digite trocar / começar o jogo aperte ENTER: ").lower()
+    print(f" Essa é a sua cartela Boa Sorte!! {cartela}\n")
+    novaCartela = input(" Para trocar a cartela digite trocar / começar o jogo aperte ENTER: ").lower()
     while novaCartela == "trocar":
         cartelaPronta()
-        print("\n Nova cartela: {}".format(cartela))
-        novaCartela = input("\n Para trocar a cartela digite trocar: ").lower()
+        print(f"\n Nova cartela: {cartela}")
+        novaCartela = input("\n Para trocar a cartela digite trocar ou aperte Enter para começar: ").lower()
     print("\n Numeros sorteados abaixo\n")
     
 def sorteio():
@@ -50,19 +50,19 @@ def sorteio():
             print(" %d"%num)
         elif numero == "sair":
             procegue = False
-            print(" Obrigado por jogar voute sempre")
+            print(" Obrigado por jogar volte sempre")
         elif numero == "sorteados":
             formato = str(sorted(sortiado)).strip("[]")
-            print("\n Numeros ja sorteados: {}".format(formato))
+            print(f"\n Numeros ja sorteados: {formato}")
             print("")
         elif numero == "cartela":
-            print("\n Cartela: {}".format(cartela))
+            print(f"\n Cartela: {cartela}")
             print("")
         
         if acerto >= 10 and acerto < 12:
             print(" OPA CORRE CORRE QUE TA COMPLETANDO\n")
         if acerto == 15:
-            print(" BINGO !!! Parabens %s VOCE VENCEU !!!\n"%nome)
+            print(f" BINGO !!! Parabens {nome} VOCE VENCEU !!!\n")
             procegue = False
     
 def main():
