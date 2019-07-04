@@ -82,7 +82,7 @@ def montarBilhete():
             num = int(input("\n Numero: "))
         if num == 98:
             cont -= 1
-            num = int(input(" Numero a ser trocado: "))
+            num = int(input("\n Numero a ser trocado: "))
             bilhete.remove(num)
             if num in erros:
                 tot_erro -= 1

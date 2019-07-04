@@ -27,3 +27,5 @@ while True:
             ini += 1
             resultado = ini - num
             print(f"{ini} - {num} = {resultado}")
+    else:
+        operador = int(input("Digite [1]para Multiplicação [2]para Divisão [3]para Soma [4]para Subtração: "))

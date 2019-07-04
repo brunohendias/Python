@@ -21,6 +21,8 @@ while len(letras_erradas) < 6 and total_acertos < len(palavra_chave) and letra !
                 letras_certas[i] = letra
                 total_acertos += 1
         print(f'letras certas: {" ".join(letras_certas)}\n')
-    elif letra not in palavra_chave and letra != 'sair':
+    elif letra == 'sair':
+        print("Obrigado por jogar, volte sempre")
+    else:
         letras_erradas.append(letra)
         print(f'letras erradas: {" ".join(letras_erradas)}') 

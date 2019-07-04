@@ -53,15 +53,13 @@ def sorteio():
             print(" Obrigado por jogar volte sempre")
         elif numero == "sorteados":
             formato = str(sorted(sortiado)).strip("[]")
-            print(f"\n Numeros ja sorteados: {formato}")
-            print("")
+            print(f"\n Numeros ja sorteados: {formato}\n")
         elif numero == "cartela":
-            print(f"\n Cartela: {cartela}")
-            print("")
-        
+            print(f"\n Cartela: {cartela}\n")
+
         if acerto >= 10 and acerto < 12:
             print(" OPA CORRE CORRE QUE TA COMPLETANDO\n")
-        if acerto == 15:
+        elif acerto == 15:
             print(f" BINGO !!! Parabens {nome} VOCE VENCEU !!!\n")
             procegue = False
     
