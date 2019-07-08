@@ -14,7 +14,7 @@ premio = "210 Milhões"
 print("~="*35)
 nome = input(" Para darmos inicio ao jogo me diga qual seu nome: ")
 print(f" Bem vindo {nome} ao sorteio da Mega Sena da virada!!\n Sera hoje o seu dia de sorte?!")
-print(" Premio acumulado em {premio}")
+print(f" Premio acumulado em {premio}")
 print(" Digite um numero por vez de 0 a 60")
 print(" Para alterar algum numero digite: 98")
 print("~="*35)
@@ -73,7 +73,7 @@ def montarBilhete():
     tot_aposta = int(input("\n Quantos numeros de 6 a 15: "))
     sorteioMega()
     
-    while tot_aposta < 6 or tot_aposta > 15:
+    while tot_aposta < 6 or tot_aposta > 15 or tot_aposta:
         tot_aposta = int(input(" Quantos numeros deseja apostar entre 6 e 15: "))
         print("")
     while cont < tot_aposta:
@@ -105,9 +105,9 @@ def montarBilhete():
 
 def escolha():
     print("\n Montar bilhete digite 1\n bilhete pronto digite 2 \n")
-    escolha = int(input(" Opção escolhida: "))
+    escolha = input(" Opção escolhida: ")
     print("~="*35)
-    if escolha == 1:
+    if escolha == '1':
         montarBilhete()
     else:
         bilhetePronto()
