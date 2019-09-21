@@ -22,7 +22,7 @@ print(" Para alterar algum numero digite: 98")
 print("~="*35)
 
 
-def sorteioMega():
+def sorteio_mega():
     bilhete_mega = []
     while len(bilhete_mega) < 6:
         numero = randint(0,60)
@@ -36,7 +36,7 @@ def resultado(mega, bilhete, existe, erros):
     bilhete_jogador = str(sorted(bilhete)).strip("[]")
     existe = str(sorted(existe)).strip("[]")
     erros = str(sorted(erros)).strip("[]")
-        
+
     if len(existe) == 6:
         print(f"\n Parabens {nome} acabou de Ganhar {premio} \n")
     elif len(existe) >= 3:
@@ -47,9 +47,9 @@ def resultado(mega, bilhete, existe, erros):
     print(f" Resultado da mega sena: {bilhete_mega}\n bilhete completo: {bilhete_jogador}\n Numeros acertado: {existe}\n Numeros errado: {erros}\n")
     print("~="*35)
 
-def bilhetePronto():
+def bilhete_pronto():
     bilhete_jogador, existe, erros = [], [], []
-    bilhete_mega = sorteioMega()
+    bilhete_mega = sorteio_mega()
 
     while len(bilhete_jogador) < 6:
         numero = randint(0,60)
@@ -62,11 +62,11 @@ def bilhetePronto():
             erros.append(numero)
     resultado(bilhete_mega, bilhete_jogador, existe, erros)
 
-def montarBilhete():
+def montar_bilhete():
 
     bilhete_jogador, existe, erros = [], [], []
-    bilhete_mega = sorteioMega()
-    
+    bilhete_mega = sorteio_mega()
+
     total_aposta = int(input("\n Quantos numeros deseja apostar entre 6 e 15: "))
 
     while total_aposta < 6 or total_aposta > 15:
@@ -109,9 +109,9 @@ def escolha():
     escolha = input(" Opção escolhida: ")
     print("~="*35)
     if escolha == '1':
-        montarBilhete()
+        montar_bilhete()
     else:
-        bilhetePronto()
+        bilhete_pronto()
 
 escolha()
 continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
