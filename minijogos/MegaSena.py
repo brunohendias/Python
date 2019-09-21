@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 """
 Feito por Bruno Henrique
@@ -80,6 +80,9 @@ def montar_bilhete():
             print(f" O numero {numero} ja existe escolha outro")
         elif numero == 98:
             numero = int(input("\n Numero a ser trocado: "))
+            while numero not in bilhete_jogador:
+                print(f" Numero {numero} nao foi escolhido")
+                numero = int(input("\n Numero a ser trocado: "))
             bilhete_jogador.remove(numero)
             if numero in erros:
                 erros.remove(numero)
