@@ -20,15 +20,16 @@ print("~="*38)
 
 def cria_cartela():
     cartela = []
-    for total in range(15):
-        numero = randint(0, 100)
+    tamanho_cartela = 20
+    for total in range(tamanho_cartela):
+        numero = randint(0, 80)
         while numero in cartela:
-            numero = randint(0,100)
+            numero = randint(0, 80)
         cartela.append(numero)
     return cartela
 
 def start_game():
-    intervalo, total_sorteios, acerto = 2, 60, 0
+    intervalo, total_sorteios, acerto = 3, 60, 0
     cartela = cria_cartela()
     print(f" Essa é a sua cartela Boa Sorte!!\n {str(sorted(cartela)).strip('[]')}\n")
     nova_cartela = input(" Para trocar a cartela digite trocar / começar o jogo aperte ENTER: ").lower()
@@ -39,30 +40,25 @@ def start_game():
     print("\n Numeros sorteados abaixo\n")
     sorteio(cartela, intervalo, acerto, total_sorteios)
 
-def sorteio(cartela, intervalo, acerto, total_sorteios):
+def sorteio(cartela, intervalo, acerto, total_sorteados):
     numeros_sorteados = []
     continua = True
     while continua:
-        if len(numeros_sorteados) == total_sorteios:
+        if len(numeros_sorteados) == total_sorteados:
             continua = False
-            print(f"\n Foi sorteado os {total_sorteados} numeros\n Numeros sortiados:\n{str(sorted(numeros_sortiados)).strip('[]')}\n Total de acertos: {acerto}\n Obrigado por jogar, mais sorte na proxima")
+            print(f"\n Foi sorteado os {total_sorteados} numeros\n Total de acertos: {acerto}\n Obrigado por jogar, mais sorte na proxima")
+        elif acerto == 20:
+            print(f"\n BINGO !!! Parabens {nome} VOCE VENCEU !!!\n")
+            continua = False
         else:
-            num = randint(0, 100)
+            num = randint(0, 80)
             while num in numeros_sorteados:
-                num = randint(0,100)
+                num = randint(0,80)
             if num in cartela:
                 acerto += 1
             numeros_sorteados.append(num)
-            #print("", num, end="") print os numeros na mesma linha
-            print(f" {num}")
+            print(f" {num}", end="", flush=True)
         time.sleep(intervalo)
-
-        if acerto >= 10 and acerto < 12 and continua == True:
-            print(" OPA CORRE CORRE QUE TA COMPLETANDO\n")
-        elif acerto == 15:
-            print(f" BINGO !!! Parabens {nome} VOCE VENCEU !!!\n")
-            continua = False
-
 
 def main():
     start_game()
