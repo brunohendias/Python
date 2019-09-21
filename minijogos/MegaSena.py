@@ -5,9 +5,6 @@ Feito por Bruno Henrique
       10/10/2018
 Caso faça alguma alteração poste no github e mande o link
 github: https://www.github.com/brunohendias
-
-Alterado dia: 19/04/2019
-Alterado dia: 26/04/2019
 """
 
 from random import randint
@@ -21,6 +18,20 @@ print(" Digite um numero por vez de 0 a 60")
 print(" Para alterar algum numero digite: 98")
 print("~="*35)
 
+def start_game():
+    escolha()
+    continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+    while continua != "nao":
+        escolha()
+        continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+
+def escolha():
+    print("\n [1]Montar bilhete \n [2]bilhete pronto \n")
+    escolha = input(" Opção escolhida: ")
+    if escolha == '1':
+        montar_bilhete()
+    else:
+        bilhete_pronto()
 
 def sorteio_mega():
     bilhete_mega = []
@@ -31,27 +42,22 @@ def sorteio_mega():
         bilhete_mega.append(numero)
     return bilhete_mega
 
-def resultado(mega, bilhete, existe, erros):
-    bilhete_mega = str(sorted(mega)).strip("[]")
-    bilhete_jogador = str(sorted(bilhete)).strip("[]")
-    existe = str(sorted(existe)).strip("[]")
-    erros = str(sorted(erros)).strip("[]")
-
-    if len(existe) == 6:
-        print(f"\n Parabens {nome} acabou de Ganhar {premio} \n")
-    elif len(existe) >= 3:
-        print(f"\n Passou perto em {nome} na proxima voce ganha\n")
-    else:
-        print("\n Pratique mais, passou longe \n")
-
-    print(f" Resultado da mega sena: {bilhete_mega}\n bilhete completo: {bilhete_jogador}\n Numeros acertado: {existe}\n Numeros errado: {erros}\n")
-    print("~="*35)
+def total_numeros(msg):
+    try:
+    	total_aposta = int(input(msg))
+    	while total_aposta < 6 or total_aposta > 15:
+            print(" Minimo 6 e Maximo 15")
+            total_aposta = int(input(msg))
+    except:
+        print(" Escolha invalida, bilhete terá 6 numeros")
+        total_aposta = 6
+    return total_aposta
 
 def bilhete_pronto():
     bilhete_jogador, existe, erros = [], [], []
-    bilhete_mega = sorteio_mega()
-
-    while len(bilhete_jogador) < 6:
+    bilhete_mega, total_aposta = sorteio_mega(), total_numeros("\n Bilhete com quantos numeros? ")
+    
+    while len(bilhete_jogador) < total_aposta:
         numero = randint(0,60)
         while numero in bilhete_jogador:
             numero = randint(0,60)
@@ -63,15 +69,9 @@ def bilhete_pronto():
     resultado(bilhete_mega, bilhete_jogador, existe, erros)
 
 def montar_bilhete():
-
     bilhete_jogador, existe, erros = [], [], []
-    bilhete_mega = sorteio_mega()
-
-    total_aposta = int(input("\n Quantos numeros deseja apostar entre 6 e 15: "))
-
-    while total_aposta < 6 or total_aposta > 15:
-        total_aposta = int(input(" Quantos numeros deseja apostar entre 6 e 15: "))
-        print("")
+    bilhete_mega, total_aposta = sorteio_mega(), total_numeros("\n Quantos numeros deseja apostar entre 6 e 15: ")
+    
     while len(bilhete_jogador) < total_aposta:
         numero = int(input("\n Numero: "))
         if(numero < 0):
@@ -107,18 +107,20 @@ def montar_bilhete():
 
     resultado(bilhete_mega, bilhete_jogador, existe, erros)
 
-def escolha():
-    print("\n [1]Montar bilhete digite \n [2]bilhete pronto digite \n")
-    escolha = input(" Opção escolhida: ")
-    print("~="*35)
-    if escolha == '1':
-        montar_bilhete()
+def resultado(mega, bilhete, existe, erros):
+    if len(existe) == 6:
+        print(f"\n Parabens {nome} acabou de Ganhar {premio} \n")
+    elif len(existe) >= 3:
+        print(f"\n Passou perto em {nome} na proxima voce ganha\n")
     else:
-        bilhete_pronto()
+        print("\n Pratique mais, passou longe \n")
 
-escolha()
-continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+    bilhete_mega = str(sorted(mega)).strip("[]")
+    bilhete_jogador = str(sorted(bilhete)).strip("[]")
+    existe = str(sorted(existe)).strip("[]")
+    erros = str(sorted(erros)).strip("[]")
 
-while continua != "nao":
-   escolha()
-   continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+    print(f" Resultado da mega sena: {bilhete_mega}\n bilhete completo: {bilhete_jogador}\n Numeros acertado: {existe}\n Numeros errado: {erros}\n")
+    print("~="*35)
+
+start_game()
