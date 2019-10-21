@@ -14,7 +14,7 @@ nome = input(" Para darmos inicio ao jogo me diga qual seu nome: ")
 print("~="*35)
 print(f" Bem vindo {nome} ao sorteio da Mega Sena da virada!!\n Sera hoje o seu dia de sorte?!")
 print(f" Premio acumulado em {premio}")
-print(" Digite um numero por vez de 0 a 60")
+print(" Digite um numero por vez de 1 a 60")
 print(" Para alterar algum numero digite: trocar")
 print("~="*35)
 
@@ -65,7 +65,7 @@ def total_numeros(msg):
 def bilhete_pronto():
     bilhete_jogador, acerto, erros = [], [], []
     bilhete_mega, total_aposta = sorteio_mega(), total_numeros("\n Bilhete com quantos numeros? ")
-    print(total_aposta)
+    
     while len(bilhete_jogador) < total_aposta:
         numero = randint(1,60)
         while numero in bilhete_jogador:
