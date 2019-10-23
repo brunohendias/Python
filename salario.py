@@ -5,7 +5,7 @@ locale.setlocale(locale.LC_MONETARY, 'en_US.UTF-8')
 salario = str(input("\nSalario bruto: "))
 vl_bruto = salario
 v_a = str(input("Valor total do vale alimentação: "))
-v_t = str(input("vale transporte:[y/N] ").lower())
+v_t = str(input("Vale transporte:[y/N] ").lower())
 adicionar = input("Adicionar mais algum gasto?:[y/N] ").lower()
 #salvar = input("Salvar informações em um arquivo?[y/N] ").lower()
 
@@ -162,12 +162,15 @@ def resultado(salario):
 	print(f"\n{color(float(vl_bruto), 92)} Valor bruto\n{color(salario, 91)} Valor final(liquido)\nDiferença {color(diferenca, 91)}")
 
 	#Gasto adicional
-	despesas_ad = gasto_adicional()
-	salario_liq = salario
-	for i in range(len(despesas_ad)):
-		old_salario = salario
-		salario -= float(despesas_ad[i]['val'])
-		print(f"{formata_valor(old_salario)} - {color(despesas_ad[i]['val'], 91)} {despesas_ad[i]['nome']} = {color(salario, 91)}")
-	print(f"{color(salario_liq, 92)} - {len(despesas_ad)} itens adicionais = Valor liquido {color(salario, 91)}\n")
+	if adicionar == 'y':
+		despesas_ad = gasto_adicional()
+		salario_liq = salario
+		for i in range(len(despesas_ad)):
+			old_salario = salario
+			salario -= float(despesas_ad[i]['val'])
+			print(f"{formata_valor(old_salario)} - {color(despesas_ad[i]['val'], 91)} {despesas_ad[i]['nome']} = {color(salario, 91)}")
+		print(f"{color(salario_liq, 92)} - {len(despesas_ad)} itens adicionais = Valor liquido {color(salario, 91)}\n")
+	else:
+		quit()
 
 resultado(salario)
