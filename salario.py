@@ -114,33 +114,37 @@ def arquivo(salario, vl_bruto, v_a):
 		arquivo = open("extrato_salario.txt", "w+")
 		print("\033[1;91m"+"Erro ao criar o nome\nArquivo criado com nome: extrato_salario.txt"+"\033[0;0m")
 	#INSS
-	arquivo.write("\nImpostos")
+	arquivo.write("\nImpostos\n")
 	old_salario, vlinss, percent_inss, salario = inss(salario)
 	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlinss, 91)} INSS {percent_inss} = {formata_valor(salario)}")
 	#IR
 	old_salario, vlir, percent_ir, salario = ir(salario)
-	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlir, 91)} IR {percent_ir} = {formata_valor(salario)}")
+	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlir, 91)} IR {percent_ir} = {formata_valor(salario)}\n")
 
 	#DESPESAS
-	arquivo.write("\n\nDespesas")
+	arquivo.write("\nDespesas\n")
 	old_salario, salario, aluguel = vl_aluguel(salario)
-	arquivo.write(f"\n{formata_valor(old_salario)} - {color(aluguel, 91)} Aluguel = {formata_valor(salario)}")
+	arquivo.write(f"{formata_valor(old_salario)} - {color(aluguel, 91)} Aluguel = {formata_valor(salario)}\n")
 	#Vale alimentação
 	if v_a:
 		try:
 			va = float(str(v_a).replace(',', '.'))
 			salario, desconto, percent, soma = vl_va(salario, va)
-			arquivo.write(f"\n\n{color(float(va), 92)} Vale alimentação\nSalario + Vale alimentação = {formata_valor(soma)}\nDescontando se usar tudo "+"\033[1;91m"+f"{formata_valor(desconto)}({percent}%)"+"\033[0;0m"+f" = {formata_valor(salario)}")
+			arquivo.write(f"\n{color(float(va), 92)} Vale alimentação\nSalario + Vale alimentação = {formata_valor(soma)}\nDescontando se usar tudo "+"\033[1;91m"+f"{formata_valor(desconto)}({percent}%)"+"\033[0;0m"+f" = {formata_valor(salario)}\n")
 		except:
-			print("\033[1;91m"+"valor do vale alimentação invalido"+"\033[0;0m")
+			print("\n\033[1;91m"+"valor do vale alimentação invalido"+"\033[0;0m\n")
 	#Vale transporte
 	if v_t == 'y':
 		salario, desconto, percent = vl_vt(salario, vl_bruto)
-		arquivo.write(f"\n\n{color(desconto, 91)} Vale transporte\nSalario - vale transporte = {formata_valor(salario)}\nVale transporte desconta {percent}% do valor bruto")
+		arquivo.write(f"\n{color(desconto, 91)} Vale transporte\nSalario - vale transporte = {formata_valor(salario)}\nVale transporte desconta {percent}% do valor bruto\n")
 
 	#diferença
-	diferenca = salario - float(vl_bruto)
-	arquivo.write(f"\n\n{color(float(vl_bruto), 92)} Valor bruto\n{color(salario, 91)} Valor final(liquido)\nDiferença {color(diferenca, 91)}\n")
+	try:
+		vl_bruto = float(str(vl_bruto).replace(',', '.'))
+		diferenca = salario - vl_bruto
+		arquivo.write(f"\n{color(float(vl_bruto), 92)} Valor bruto\n{color(salario, 91)} Valor final(liquido)\nDiferença {color(diferenca, 91)}\n")
+	except:
+		print("\nSalario não e valido\n")
 
 	#Gasto adicional
 	if adicionar == 'y':
