@@ -3,7 +3,12 @@ import locale
 locale.setlocale(locale.LC_MONETARY, 'en_US.UTF-8')
 
 salario = str(input("\nSalario bruto: "))
-vl_bruto = salario
+try:
+	salario = float(salario.replace(',', '.'))
+	vl_bruto = salario
+except:
+	print("\033[1;91m"+"Valor do salario invalido"+"\033[0;0m")
+	quit()
 v_a = str(input("Valor total do vale alimentação: "))
 v_t = str(input("Vale transporte:[y/N] ").lower())
 adicionar = input("Adicionar mais algum gasto?:[y/N] ").lower()
@@ -20,11 +25,6 @@ def color(valor, cor):
 	return valor
 
 def inss(salario):
-	try:
-		salario = float(salario.replace(',', '.'))
-	except:
-		print("\033[1;91m"+"Valor do salario invalido"+"\033[0;0m")
-		quit()
 	old_salario = salario
 	if salario <= 5645.80:
 		if salario <= 1693.72:
@@ -47,43 +47,43 @@ def ir(salario):
 	old_salario = salario
 	try:
 		salario = float(salario)
+		if salario > 1904:
+			if salario >= 1904 and salario <= 2826.65:
+				percent = 7.5
+			elif salario > 2826.65 and salario <= 3751.05:
+				percent = 15
+			elif salario > 3751.05 and salario <= 4664.68:
+				percent = 22.5
+			elif salario > 4664.68:
+				percent = 27.5
+			vl_ir = salario * percent / 100
+			percent = str(percent) + '%'
+			salario -= vl_ir
+		elif salario < 1904:
+			vl_ir = 0
+			percent = 0
+			print("\033[1;92m"+"Salario abaixo de $1904.00 não e cobrado o IR"+"\033[0;0m")
 	except:
 		print("\033[1;91m"+"Impossivel calcular IR. Salario não definido"+"\033[0;0m")
 		quit()
-	if salario > 1904:
-		if salario >= 1904 and salario <= 2826.65:
-			percent = 7.5
-		elif salario > 2826.65 and salario <= 3751.05:
-			percent = 15
-		elif salario > 3751.05 and salario <= 4664.68:
-			percent = 22.5
-		elif salario > 4664.68:
-			percent = 27.5
-		vl_ir = salario * percent / 100
-		percent = str(percent) + '%'
-		salario -= vl_ir
-	elif salario < 1904:
-		vl_ir = 0
-		percent = 0
-		print("\033[1;92m"+"Salario abaixo de $1904.00 não e cobrado o IR"+"\033[0;0m")
 
 	return old_salario, vl_ir, percent, salario
 
 def vl_va(salario, va):
 	percent = 20
-	desconto_va = va * percent / 100
+	desconto = va * percent / 100
 	salario += va
-	soma_va = salario
-	salario -= desconto_va
-	return salario, desconto_va, percent, soma_va
+	soma = salario
+	salario -= desconto
+	return salario, desconto, percent, soma
 
 def vl_vt(salario, vl_bruto):
 	try:
-		vl_bruto = float(str(vl_bruto).replace(',','.'))
+		vl_bruto = float(str(vl_bruto).replace(',', '.'))
 		percent = 8
-		desconto_vt = vl_bruto * percent / 100
-		salario -= desconto_vt
-		return salario, desconto_vt, percent
+		desconto = vl_bruto * percent / 100
+		salario -= desconto
+		return salario, desconto, percent
 	except:
 		return salario
 
@@ -100,7 +100,7 @@ def gasto_adicional():
 		if adicional == '0':
 			break
 		try:
-			adicional = float(adicional.replace(',', '.'))
+			adicional = float(adicional)
 			nome = input("Nome: ")
 			despesa_adicional.append({'val': adicional, 'nome': nome})
 		except:
@@ -114,19 +114,19 @@ def arquivo(salario, vl_bruto, v_a):
 		arquivo = open("extrato_salario.txt", "w+")
 		print("\033[1;91m"+"Erro ao criar o nome\nArquivo criado com nome: extrato_salario.txt"+"\033[0;0m")
 	#INSS
-	arquivo.write("\nImpostos\n")
+	arquivo.write("\nImpostos")
 	old_salario, vlinss, percent_inss, salario = inss(salario)
-	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlinss, 91)} INSS {percent_inss} = {formata_valor(salario)}")
+	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlinss, 91)} INSS {percent_inss} = {formata_valor(salario)}\n")
 	#IR
 	old_salario, vlir, percent_ir, salario = ir(salario)
-	arquivo.write(f"\n{formata_valor(old_salario)} - {color(vlir, 91)} IR {percent_ir} = {formata_valor(salario)}\n")
+	arquivo.write(f"{formata_valor(old_salario)} - {color(vlir, 91)} IR {percent_ir} = {formata_valor(salario)}\n")
 
 	#DESPESAS
-	arquivo.write("\nDespesas\n")
+	arquivo.write("\nDespesas")
 	old_salario, salario, aluguel = vl_aluguel(salario)
-	arquivo.write(f"{formata_valor(old_salario)} - {color(aluguel, 91)} Aluguel = {formata_valor(salario)}\n")
+	arquivo.write(f"\n{formata_valor(old_salario)} - {color(aluguel, 91)} Aluguel = {formata_valor(salario)}\n")
 	#Vale alimentação
-	if v_a:
+	if v_a and v_a != '0':
 		try:
 			va = float(str(v_a).replace(',', '.'))
 			salario, desconto, percent, soma = vl_va(salario, va)
@@ -142,7 +142,7 @@ def arquivo(salario, vl_bruto, v_a):
 	try:
 		vl_bruto = float(str(vl_bruto).replace(',', '.'))
 		diferenca = salario - vl_bruto
-		arquivo.write(f"\n{color(float(vl_bruto), 92)} Valor bruto\n{color(salario, 91)} Valor final(liquido)\nDiferença {color(diferenca, 91)}\n")
+		arquivo.write(f"\n{color(vl_bruto, 92)} Valor bruto\n{color(salario, 91)} Valor final(liquido)\nDiferença {color(diferenca, 91)}\n")
 	except:
 		print("\nSalario não e valido\n")
 
@@ -156,8 +156,6 @@ def arquivo(salario, vl_bruto, v_a):
 			salario -= float(despesas_ad[i]['val'])
 			arquivo.write(f"\n{formata_valor(old_salario)} - {color(despesas_ad[i]['val'], 91)} {despesas_ad[i]['nome']} = {color(salario, 91)}")
 		arquivo.write(f"\n{color(salario_liq, 92)} - {len(despesas_ad)} itens adicionais = Valor liquido {color(salario, 91)}\n")
-	else:
-		quit()
+	quit()
 
 arquivo(salario, vl_bruto, v_a)
-quit()
