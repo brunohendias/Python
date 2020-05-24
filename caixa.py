@@ -9,7 +9,7 @@ class Caixa:
         self.caixas = {}
         self.lobby = []
         self.nom_caixas = []
-        self.limitePorCaixa = 1
+        self.limitePorCaixa = 5
 
     def adiciona_caixa(self):
         nome = input("Digite o nome do caixa: ")
