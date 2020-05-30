@@ -2,7 +2,7 @@
 
 """
 Feito por Bruno Henrique
-      10/10/2018
+Data:   10/10/2018
 Caso faça alguma alteração poste no github e mande o link
 github: https://www.github.com/brunohendias
 """
@@ -12,23 +12,27 @@ from random import randint
 premio = "210 Milhões"
 nome = input(" Para darmos inicio ao jogo me diga qual seu nome: ")
 print("~="*35)
-print(f" Bem vindo {nome} ao sorteio da Mega Sena da virada!!\n Sera hoje o seu dia de sorte?!")
-print(f" Premio acumulado em {premio}")
-print(" Digite um numero por vez de 1 a 60")
-print(" Para alterar algum numero digite: trocar")
+print(f"""
+    Bem vindo {nome} ao sorteio da Mega Sena da virada!!
+    Sera hoje o seu dia de sorte?!
+    Premio acumulado em {premio}.
+    Digite um numero por vez de 1 a 60.
+    Para alterar algum numero digite: trocar.
+""")
 print("~="*35)
 
 def start_game():
     escolha()
-    continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+    msg = "\n Deseja continuar [Sim/Nao]? "
+    continua = input(msg).lower()
     if continua != "nao":
         escolha()
-        continua = input("\n Deseja continuar [Sim/Nao]? ").lower()
+        continua = input(msg).lower()
     else:
     	quit()
 
 def escolha():
-    print("\n [1]Montar bilhete\n [2]bilhete pronto\n [sair]Sair\n")
+    print("\n [1]Montar bilhete\n [2]Bilhete pronto\n [sair]Sair\n")
     escolha = input(" Opção: ")
     if escolha.isdigit():
         if escolha == '1':
@@ -37,7 +41,7 @@ def escolha():
         elif escolha == '2':
             print(" Opção escolhida: Bilhete pronto")
             bilhete_pronto()
-    elif escolha == 'sair':
+    elif escolha.lower() == 'sair':
         quit()
     else:
         start_game()
@@ -64,7 +68,8 @@ def total_numeros(msg):
 
 def bilhete_pronto():
     bilhete_jogador, acerto, erros = [], [], []
-    bilhete_mega, total_aposta = sorteio_mega(), total_numeros("\n Bilhete com quantos numeros? ")
+    bilhete_mega = sorteio_mega()
+    total_aposta = total_numeros("\n Bilhete com quantos numeros? ")
     
     while len(bilhete_jogador) < total_aposta:
         numero = randint(1,60)
@@ -80,7 +85,8 @@ def bilhete_pronto():
 
 def montar_bilhete():
     bilhete_jogador, acerto, erros = [], [], []
-    bilhete_mega, total_aposta = sorteio_mega(), total_numeros("\n Quantos numeros deseja apostar entre 6 e 15: ")
+    bilhete_mega = sorteio_mega()
+    total_aposta = total_numeros("\n Quantos numeros deseja apostar entre 6 e 15: ")
     
     while len(bilhete_jogador) < total_aposta:
         numero = input("\n Numero: ")
