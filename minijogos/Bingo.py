@@ -24,7 +24,7 @@ nome = input("\n Antes de começarmos me diga qual seu nome? ")
 print("~="*38)
 print(f"""
     Seja bem vindo {nome} ao Bingo! Será hoje o seu dia de sorte!?
-    O sorteio acontece automaticamente a cada {intervalo} e termina quando
+    O sorteio acontece automaticamente a cada {intervalo} segundos e termina quando
     sortear {total_sorteios} numeros diferentes. Os numeros da cartela vai de {menor_numero} a {maior_numero}
     com limite de {tamanho_cartela} numeros. No final é mostrado os resultados contendo
     os numeros sorteados e o total de acertos.
