@@ -1,6 +1,4 @@
-# Programa para automatizar o controle de fila
-# Feito por: https://github.com/brunohendias
-# Data: 09/05/2020
+#!/usr/bin/python3
 import random
 
 class Caixa:
@@ -11,10 +9,14 @@ class Caixa:
         self.nom_caixas = []
         self.limitePorCaixa = 5
 
-    def adiciona_caixa(self):
-        nome = input("Digite o nome do caixa: ")
+    def adiciona_caixa(self, nome):
         self.caixas[nome] = []
         self.nom_caixas.append(nome)
+
+        return nome
+
+    def ver_fila_caixa(self, caixa):
+        return self.caixas[caixa]
         
     def entrar(self, nome):
         menor_fila = self.nom_caixas[0]
