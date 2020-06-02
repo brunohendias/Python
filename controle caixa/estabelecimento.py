@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 from caixa import Caixa
+from cliente import Cliente
 import os
+
+caixa = Caixa()
+cliente = Cliente()
 
 os.system('cls')
 print("=~="*25)
@@ -11,17 +15,15 @@ print("""
 """)
 print("=~="*25)
 input("Aperte ENTER para iniciar... ")
-print("\nPrimeiro vamos adicionar os caixas\nDigite (fim) para o proximo passo\n")
+print("\nPrimeiro vamos adicionar os caixas\nAperte ENTER para avançar para o proximo passo\n")
 
-estabelecimento = Caixa()
-continua = True
-while continua:
-    caixa = input("Nome do caixa: ")
-    if caixa == 'fim':
-        continua = False
+while True:
+    nom_caixa = input("Nome do caixa: ")
+    if nom_caixa == '':
         break
-    caixa = estabelecimento.adiciona_caixa(caixa)
-    print(f"Caixas: {' '.join(estabelecimento.nom_caixas)}\n")
+    
+    caixa.adiciona_caixa(nom_caixa)
+    print(f"Caixas: {' '.join(caixa.nom_caixas)}\n")
 
 print("\nAgora vamos começar\n")
 print("=~="*25)
@@ -34,25 +36,29 @@ print(f"""
     [3] Remover cliente
     [4] Ver a fila do caixa
 
-    Caixas: {' '.join(estabelecimento.nom_caixas)}
+    Caixas: {' '.join(caixa.nom_caixas)}
 """)
 print("=~="*25)
 
 opcao = input("Digite a opção: ")
-while opcao != '0':
-    if opcao == '1':
-        estabelecimento.adiciona_caixa()
+while True:
+    if opcao == '':
+        break
+    
+    elif opcao == '1':
+        caixa.adiciona_caixa()
         
     elif opcao == '2':
         nome = input("Nome do cliente: ")
-        estabelecimento.entrar(nome)
+        caixa.caixas = cliente.entrar(nome, caixa.caixas, caixa.nom_caixas, caixa.limitePorCaixa)
         
     elif opcao == '3':
-        estabelecimento.sair()
+        caixa.caixas = cliente.sair(caixa.caixas, caixa.nom_caixas)
 
     elif opcao == '4':
+        print(f"\nCaixas: {' '.join(caixa.nom_caixas)}")
         nom_caixa = input("Digite o nome do caixa: ")
-        print(f"\n Caixa: {nom_caixa}\n Fila: {' '.join(estabelecimento.ver_fila_caixa(nom_caixa))}")
+        print(f"\n Caixa: {nom_caixa}\n Fila: {' '.join(caixa.ver_fila_caixa(nom_caixa))}")
 
     else:
         print("Opção invalida")
