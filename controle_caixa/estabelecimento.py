@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-from caixa import Caixa
-from cliente import Cliente
+from Classes.caixa import Caixa
+from Classes.cliente import Cliente
 import os
 
 caixa = Caixa()
@@ -28,14 +28,14 @@ while True:
 print("\nAgora vamos começar\n")
 print("=~="*25)
 print(f"""
-            Menu de opções
-            
-    [0] Finalizar o programa    
+            Menu de opções    
+
     [1] Adicionar caixa
     [2] Adicionar cliente
     [3] Remover cliente
     [4] Ver a fila do caixa
-
+    [ENTER] Finalizar o programa
+    
     Caixas: {' '.join(caixa.nom_caixas)}
 """)
 print("=~="*25)
@@ -46,7 +46,8 @@ while True:
         break
     
     elif opcao == '1':
-        caixa.adiciona_caixa()
+        nom_caixa = input("Nome do caixa: ")
+        caixa.adiciona_caixa(nom_caixa)
         
     elif opcao == '2':
         nome = input("Nome do cliente: ")
