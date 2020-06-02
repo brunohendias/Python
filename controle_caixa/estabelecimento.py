@@ -26,43 +26,50 @@ while True:
     print(f"Caixas: {' '.join(caixa.nom_caixas)}\n")
 
 print("\nAgora vamos começar\n")
-print("=~="*25)
-print(f"""
+print("=~="*15)
+msg = f"""
             Menu de opções    
 
-    [1] Adicionar caixa
-    [2] Adicionar cliente
-    [3] Remover cliente
-    [4] Ver a fila do caixa
-    [ENTER] Finalizar o programa
-    
-    Caixas: {' '.join(caixa.nom_caixas)}
-""")
-print("=~="*25)
+    [1] Adicionar caixa     [2] Remover caixa
+    [3] Adicionar cliente   [4] Remover cliente
+    [5] Ver a fila do caixa
 
-opcao = input("Digite a opção: ")
+    [ENTER] Finalizar o programa
+"""
+print(msg)
+print("=~="*15)
+
+opcao = input("\nDigite a opção: ")
 while True:
     if opcao == '':
         break
     
     elif opcao == '1':
-        nom_caixa = input("Nome do caixa: ")
+        nom_caixa = input("Nome do caixa a ser adicionado: ")
         caixa.adiciona_caixa(nom_caixa)
-        
+
     elif opcao == '2':
+        print(f"\nCaixas: {' '.join(caixa.nom_caixas)}")
+        nom_caixa = input("Digite o nome do caixa a ser removido: ")
+        print(caixa.remove_caixa(nom_caixa))
+        
+    elif opcao == '3':
         nome = input("Nome do cliente: ")
         caixa.caixas = cliente.entrar(nome, caixa.caixas, caixa.nom_caixas, caixa.limitePorCaixa)
         
-    elif opcao == '3':
+    elif opcao == '4':
         caixa.caixas = cliente.sair(caixa.caixas, caixa.nom_caixas)
 
-    elif opcao == '4':
+    elif opcao == '5':
         print(f"\nCaixas: {' '.join(caixa.nom_caixas)}")
-        nom_caixa = input("Digite o nome do caixa: ")
+        nom_caixa = input("Digite o nome do caixa para ver a fila: ")
         print(f"\n Caixa: {nom_caixa}\n Fila: {' '.join(caixa.ver_fila_caixa(nom_caixa))}")
 
     else:
         print("Opção invalida")
 
+    print("=~="*15)
+    print(msg)
+    print("=~="*15)
     opcao = input("\nDigite a opção: ")
     

@@ -12,8 +12,10 @@ class Caixa:
         self.nom_caixas.append(nome)
 
     def remove_caixa(self, nome):
-        pass
+        if len(self.caixas[nome]) == 0:
+            del(self.caixas[nome])
+            return f"O caixa {nome} foi removido com sucesso."
+        return "O caixa não pode ser removido porque contem cliente"
 
     def ver_fila_caixa(self, caixa):
         return self.caixas[caixa]
-
