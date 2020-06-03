@@ -1,19 +1,24 @@
 #!/usr/bin/python3
 from Classes.caixa import Caixa
 from Classes.cliente import Cliente
+from Classes.lobby import Lobby
 import os
 
 caixa = Caixa()
 cliente = Cliente()
+lobby = Lobby()
+linha = 18
 
 os.system('cls')
-print("=~="*25)
-print("""
+print(f"""
+{"=~="*linha}
+
     Programa para automatizar o controle de fila
     Github: https://github.com/brunohendias
     Data: 09/05/2020
+
+{"=~="*linha}
 """)
-print("=~="*25)
 input("Aperte ENTER para iniciar... ")
 print("\nPrimeiro vamos adicionar os caixas\nAperte ENTER para avançar para o proximo passo\n")
 
@@ -21,23 +26,24 @@ while True:
     nom_caixa = input("Nome do caixa: ")
     if nom_caixa == '':
         break
-    
+
     caixa.adiciona_caixa(nom_caixa)
     print(f"Caixas: {' '.join(caixa.nom_caixas)}\n")
 
-print("\nAgora vamos começar\n")
-print("=~="*15)
 msg = f"""
-            Menu de opções    
+{"=~="*linha}
+
+        Menu de opções    
 
     [1] Adicionar caixa     [2] Remover caixa
     [3] Adicionar cliente   [4] Remover cliente
-    [5] Ver a fila do caixa
+    [5] Ver a fila do caixa [6] Ver o lobby
 
     [ENTER] Finalizar o programa
+
+{"=~="*linha}
 """
 print(msg)
-print("=~="*15)
 
 opcao = input("\nDigite a opção: ")
 while True:
@@ -55,21 +61,22 @@ while True:
         
     elif opcao == '3':
         nome = input("Nome do cliente: ")
-        caixa.caixas = cliente.entrar(nome, caixa.caixas, caixa.nom_caixas, caixa.limitePorCaixa)
+        caixa.caixas = cliente.entrar(nome, caixa, lobby)
         
     elif opcao == '4':
-        caixa.caixas = cliente.sair(caixa.caixas, caixa.nom_caixas)
+        caixa.caixas = cliente.sair(caixa, lobby)
 
     elif opcao == '5':
         print(f"\nCaixas: {' '.join(caixa.nom_caixas)}")
         nom_caixa = input("Digite o nome do caixa para ver a fila: ")
         print(f"\n Caixa: {nom_caixa}\n Fila: {' '.join(caixa.ver_fila_caixa(nom_caixa))}")
 
+    elif opcao == '6':
+        print(f"\nLobby de espera: {' '.join(lobby.lobby)}\nQuantidade de pessoas no lobby: {len(lobby.lobby)}")
+        
     else:
         print("Opção invalida")
 
-    print("=~="*15)
+    input("\nAperte ENTER para ver o menu... ")
     print(msg)
-    print("=~="*15)
     opcao = input("\nDigite a opção: ")
-    
