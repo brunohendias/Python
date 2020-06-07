@@ -1,19 +1,17 @@
 #!/usr/bin/python3
 from Funcoes import crud
-from Mensagens import msg
-import os
+from Uteis import msg
+from os import system
+clear = system('cls')
 
-os.system('cls')
+clear
 print(msg.inicio)
 input("Aperte ENTER para iniciar... ")
 print("\nPrimeiro vamos adicionar os caixas\nAperte ENTER para avançar para o proximo passo\n")
 
-while True:
-    nom_caixa = input("Nome do caixa a ser adicionado: ").lower()
-    if nom_caixa == '':
-        break
-    
-    crud.adiciona_caixa(nom_caixa)
+continua = True
+while continua:
+    continua = crud.adiciona_caixa()
     crud.ver_caixas()
 
 print(msg.menu)
@@ -24,34 +22,27 @@ while True:
     
     elif opcao == '1':
         crud.ver_caixas()
-        nom_caixa = input("Nome do caixa a ser adicionado: ").lower()
-        if nom_caixa == '':
-            break
-
-        crud.adiciona_caixa(nom_caixa)
+        crud.adiciona_caixa()
 
     elif opcao == '2':
         crud.ver_caixas()
-        nom_caixa = input("Digite o nome do caixa a ser removido: ")
-
-        crud.remove_caixa(nom_caixa)
+        crud.remove_caixa()
         
     elif opcao == '3': 
-        nom_cliente = input("Nome do cliente: ")
-
-        crud.adiciona_cliente(nom_cliente)
+        crud.adiciona_cliente()
         
     elif opcao == '4':
         crud.remove_cliente()
 
     elif opcao == '5':
         crud.ver_caixas()
-        nom_caixa = input("Digite o nome do caixa para ver a fila: ")
-        
-        crud.ver_fila_caixa(nom_caixa)
+        crud.ver_fila_caixa()
 
     elif opcao == '6':
         crud.ver_lobby()
+
+    elif opcao == '7':
+        crud.ver_cliente()
         
     else:
         print("Opção invalida")
