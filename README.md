@@ -13,16 +13,16 @@ dados e valores retirados desse [Site](https://www.btgpactualdigital.com/blog/im
 
 [Salario Liquido](https://github.com/brunohendias/Python/blob/master/salario.py)
 
-## Caixa
+## Controle de caixa
 
-Logica para administrar os caixas de um estabelecimento. <br>
-O script da a possibilidade de adicionar todos os caixas do estabelecimento e fazer o controle automatico do mesmo. <br>
-Ele controla automaticamente a quantidade de pessoas em cada caixa mantendo sempre o menor tamanho em cada fila. <br>
-Tendo um tamanho maximo de pessoas por fila, ele coloca as pessoas em um lobby de espera, e assim que algum caixa é liberado, ele adiciona o primeiro do lobby na fila. <br>
-Podendo ser usado para multiplos estabelecimentos sem que um interfira no outro. <br>
+Logica para automatizar o controle dos caixas de um estabelecimento.<br>
+O projeto consiste em simular a fila, dinheiro, e o funcionario do caixa e também a idade, carrinho de compras e o dinheiro do cliente<br>
+Ele possibilita adicionar os caixas e fazer o controle automatico da fila dele mantendo sempre o menor numero em cada caixa.<br>
+Tendo um tamanho maximo de clientes por fila, ele coloca os clientes em um lobby de espera, e assim que algum caixa é liberado, ele adiciona o primeiro do lobby na fila.<br>
+A cada cliente que é liberado ele faz o relatorio automatico de quanto o cliente gastou, o valor no caixa e o estoque de recurso do estabelecimento<br>
 Feito usando [Python OO](https://docs.python.org/pt-br/3/tutorial/classes.html)
 
-[Caixa](https://github.com/brunohendias/Python/blob/master/caixa.py)
+[Controle de caixa](https://github.com/brunohendias/Python/blob/master/controle_caixa)
 
 ## Bingo
 
