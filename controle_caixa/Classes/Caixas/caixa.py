@@ -3,8 +3,9 @@ class Caixa:
 
     def __init__(self):
         self.nome = ''
-        self.dinheiro_inicial = ''
+        self.dinheiro_inicial = 1000.00
         self.fila = []
+        self.nom_clientes = []
         self.limiteFila = 5
 
     def __str__(self):

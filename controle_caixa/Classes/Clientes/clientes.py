@@ -4,7 +4,7 @@ class Clientes:
         self.clientes = []
         self.nom_clientes = []
 
-    def seta_cliente(self, cliente):
+    def adiciona_cliente(self, cliente):
     	self.clientes.append(cliente)
     	self.nom_clientes.append(cliente.nome)
 

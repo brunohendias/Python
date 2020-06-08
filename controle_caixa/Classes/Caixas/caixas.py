@@ -6,7 +6,7 @@ class Caixas:
         self.index_fila = 0
 
     def ver_fila_caixa(self, index):
-        return self.caixas[index].fila
+        return self.caixas[index].nom_clientes
 
     def adiciona_caixa(self, caixa):
         self.caixas.append(caixa)
@@ -17,18 +17,20 @@ class Caixas:
         del(self.nom_caixas[index])
 
     def acha_menor_fila(self):
-        total_caixas = len(self.nom_caixas)
-        index = self.index_fila
-        if index == total_caixas:
-            index = 0
-            self.index_fila = 0
-        else:
-            self.index_fila += 1
+        menor_fila = self.caixas[self.index_fila].fila
+        limite = len(self.caixas)
 
-        return index
+        for i in range(limite):
+            if len(menor_fila) > len(self.caixas[i].fila):
+                menor_fila = self.caixas[i].fila
+                self.index_fila = i
+
+        return self.index_fila
 
     def adiciona_cliente(self, index, cliente):
         self.caixas[index].fila.append(cliente)
+        self.caixas[index].nom_clientes.append(cliente.nome)
 
     def remove_cliente(self, index, posicao):
         self.caixas[index].fila.pop(posicao)
+        self.caixas[index].nom_clientes.pop(posicao)

@@ -2,60 +2,54 @@ import sys
 sys.path.append('..')
 # Necessario para import de modulos em pasta anterior
 
-#Classes do caixa
+# Classes do caixa
 from Classes.Caixas.caixas import Caixas
 from Classes.Caixas.caixa import Caixa
 caixas = Caixas()
 
-#Classes do cliente
+# Classes do cliente
 from Classes.Clientes.clientes import Clientes
 from Classes.Clientes.cliente import Cliente 
 clientes = Clientes()
 
-#Classes do lobby
+# Classes do lobby
 from Classes.Lobby.lobby import Lobby
 lobby = Lobby()
 
-#Itens uteis para o projeto
+# Itens uteis para o projeto
 from Uteis.listas import partileiras
 
 from random import randint
 
-def adiciona_caixa():
+def ver_lobby():
+    print(f"\nLobby de espera: {' '.join(lobby.nom_clientes)}.")
+    print(f"Quantidade de pessoas no lobby: {len(lobby.nom_clientes)}")
 
-    nom_caixa = input("Nome do caixa a ser adicionado: ").lower()
-    if nom_caixa == '':
-        return False
+def ver_clientes():
+    print(f"\nClientes: {' '.join(clientes.nom_clientes)}")
 
-    elif nom_caixa in caixas.nom_caixas:
-        print(f"O {novo_caixa['nome']} já está no caixa.")
-    
-    else:
-        try:
-            dinheiro = float(input("Dinheiro inicial do caixa: ").replace(',', '.'))
-        except:
-            print("Valor invalido")
-            dinheiro = float(input("Dinheiro inicial do caixa: ").replace(',', '.'))
-        
-        caixa = Caixa()
-        caixa.nome = nom_caixa
-        caixa.dinheiro_inicial = dinheiro
-        
-        caixas.adiciona_caixa(caixa)
-    
-    return True
+def ver_caixas():
+    print(f"Caixas: {', '.join(caixas.nom_caixas)}\n")
 
-def remove_caixa():
-    nom_caixa = input("Digite o nome do caixa a ser removido: ")
+def ver_fila_caixa():
+    nom_caixa = input("Digite o nome do caixa para ver a fila: ")
     if nom_caixa in caixas.nom_caixas:
         index = caixas.nom_caixas.index(nom_caixa)
-        if len(caixas.caixas[index].fila) == 0:
-            caixas.remove_caixa(index)
-            print(f"O caixa {nom_caixa} foi removido com sucesso.")
-        else:
-            print("O caixa não pode ser removido porque contem cliente")
+        fila_caixa = caixas.ver_fila_caixa(index)
+        print(f"\nCaixa: {nom_caixa}\nFila: {' '.join(fila_caixa)}.")
     else:
         print(f"{nom_caixa} não está no caixa.")
+
+def ver_cliente():
+    print(f"Clientes: {', '.join(clientes.nom_clientes)}\n")
+    nome_cliente = input("Nome do cliente: ")
+
+    if nome_cliente in clientes.nom_clientes:
+        index = clientes.nom_clientes.index(nome_cliente)
+        cliente_busca = clientes.ver_cliente(index)
+        print(f"\n{cliente_busca}")
+    else:
+        print("Cliente não encontrado.")
 
 def define_cliente(index, nome):
     carrinho = []
@@ -74,9 +68,35 @@ def define_cliente(index, nome):
     novo_cliente.dinheiro = randint(100, 300)
     novo_cliente.caixa = nome
     novo_cliente.carrinho = carrinho
-    clientes.seta_cliente(novo_cliente)
+    clientes.adiciona_cliente(novo_cliente)
 
     return novo_cliente
+
+def adiciona_caixa():
+
+    nom_caixa = input("Nome do caixa a ser adicionado: ").lower()
+    if nom_caixa == '':
+        return False
+
+    elif nom_caixa in caixas.nom_caixas:
+        print(f"O {nom_caixa} já está no caixa.")
+    
+    else:
+        try:
+            dinheiro = float(input("Dinheiro inicial do caixa: ").replace(',', '.'))
+        except:
+            print("Valor invalido")
+            dinheiro = float(input("Dinheiro inicial do caixa: ").replace(',', '.'))
+        limiteFila = input("Limite de clientes na fila: ")
+        
+        caixa = Caixa()
+        caixa.nome = nom_caixa
+        caixa.dinheiro_inicial = dinheiro
+        caixa.limiteFila = caixa.limiteFila if limiteFila == '' else int(limiteFila)
+        
+        caixas.adiciona_caixa(caixa)
+    
+    return True
 
 def adiciona_cliente():
     index = caixas.acha_menor_fila()
@@ -92,8 +112,7 @@ def adiciona_cliente():
     elif len(fila_caixa) == limite:
         lobby.entrar_lobby(novo_cliente)
         print(f'\n({novo_cliente.nome}) entrou no lobby.')
-        print(f'Lobby: {" ".join(lobby.lobby)}')
-        print(f'Quantidade de clientes aguardando: {len(lobby.lobby)}\n.')
+        ver_lobby()
         # se a fila do caixa chegar no limite adiciona no lobby
 
     elif len(lobby.lobby) > 0:
@@ -101,16 +120,29 @@ def adiciona_cliente():
         print(f'\n{novo_cliente.nome} foi para o lobby de espera.')
         if len(caixa_atual) < limite:
             foiParaFila = lobby.liberar_lobby()
-            print(f'Lobby: ({" ".join(lobby.lobby)}).')
-            print(f'Quantidade no lobby: {len(lobby.lobby)}.\n')
             caixas.adiciona_cliente(index, foiParaFila)
             print(f'\n{foiParaFila} saiu do lobby e entrou na fila do caixa: {menor_fila}.')
+            ver_lobby()
         # se tiver alguem no lobby e tiver algum caixa com espaço, coloca no caixa e adiciona o atual no lobby
+
+def remove_caixa():
+    nom_caixa = input("Digite o nome do caixa a ser removido: ")
+    if nom_caixa in caixas.nom_caixas:
+        index = caixas.nom_caixas.index(nom_caixa)
+        if len(caixas.caixas[index].fila) == 0:
+            caixas.remove_caixa(index)
+            print(f"O caixa {nom_caixa} foi removido com sucesso.")
+        else:
+            print("O caixa não pode ser removido porque contem cliente")
+    else:
+        print(f"{nom_caixa} não está no caixa.")
 
 def remove_cliente():
     nom_caixas = caixas.nom_caixas
     _caixas = caixas.caixas
     index = randint(0, len(nom_caixas) - 1)
+
+    print(_caixas)
 
     if len(_caixas[index].fila) == 0:
         for i in _caixas:
@@ -132,38 +164,6 @@ def remove_cliente():
 
     if len(lobby.lobby) > 0:
         foiParaFila = lobby.liberar_lobby()
-        print(f'Lobby: ({" ".join(lobby.lobby)}).')
-        print(f'Quantidade no lobby: {len(lobby.lobby)}.\n')
         caixas.adiciona_cliente(index, foiParaFila)
         nome = foiParaFila.nome
         print(f'\n{nome} saiu do lobby e entrou na fila do caixa: {_caixa.nome}.')
-
-def ver_fila_caixa():
-    nom_caixa = input("Digite o nome do caixa para ver a fila: ")
-    if nom_caixa in caixas.nom_caixas:
-        index = caixas.nom_caixas.index(nom_caixa)
-        fila_caixa = caixas.ver_fila_caixa(index)
-        print(f"\nCaixa: {nom_caixa}\nFila: {' '.join(fila_caixa)}.")
-    else:
-        print(f"{nom_caixa} não está no caixa.")
-
-def ver_lobby():
-    print(f"\nLobby de espera: {' '.join(lobby.lobby)}.")
-    print(f"Quantidade de pessoas no lobby: {len(lobby.lobby)}")
-
-def ver_caixas():
-    print(f"Caixas: {', '.join(caixas.nom_caixas)}\n")
-
-def ver_cliente():
-    print(f"Clientes: {', '.join(clientes.nom_clientes)}\n")
-    nome_cliente = input("Nome do cliente: ")
-
-    if nome_cliente in clientes.nom_clientes:
-        index = clientes.nom_clientes.index(nome_cliente)
-        cliente_busca = clientes.ver_cliente(index)
-        print(f"\n{cliente_busca}")
-    else:
-        print("Cliente não encontrado.")
-
-def ver_clientes():
-    print(f"\nClientes: {' '.join(clientes.nom_clientes)}")

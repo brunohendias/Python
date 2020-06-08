@@ -12,4 +12,4 @@ class Cliente:
         return f"Nome: {self.nome}\nIdade: {self.idade}\nDinheiro: R${self.dinheiro}\nCarrinho: {' '.join(self.carrinho)}\nCaixa: {self.caixa}"
 
     def __repr__(self):
-    	return self.nome
+        return self.nome
