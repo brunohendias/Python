@@ -84,59 +84,49 @@ def bilhete_pronto():
     resultado(bilhete_mega, bilhete_jogador, acerto, erros)
 
 def montar_bilhete():
-    bilhete_jogador, acerto, erros = [], [], []
+    acerto, erros = [], []
     bilhete_mega = sorteio_mega()
     total_aposta = total_numeros("\n Quantos numeros deseja apostar entre 6 e 15: ")
+
+    bilhete_jogador = input("\n Digite os numeros da sua aposta: ").replace(',', ' ').replace(';', ' ').split()
     
-    while len(bilhete_jogador) < total_aposta:
-        numero = input("\n Numero: ")
-        if numero == 'trocar':
-            numero = int(input("\n Numero a ser trocado: "))
-            while numero not in bilhete_jogador:
-                print(f" {numero} nao foi escolhido\n")
-                numero = int(input("\n Numero a ser trocado: "))
-            bilhete_jogador.remove(numero)
-            if numero in erros:
-                erros.remove(numero)
-            elif numero in acerto:
-                acerto.remove(numero)
-            numero = int(input(" Novo numero: "))
-            while numero < 0 or numero > 60 or numero in bilhete_jogador:
-                numero = int(input(" Novo numero: "))
-            bilhete_jogador.append(numero)
-            if numero in bilhete_mega:
-                acerto.append(numero)
+    if len(bilhete_jogador) == total_aposta:
+        acertos, erros = 0, 0
+        list_acerto, list_erro = [], []
+        numero_errado = False
+        for i in range(len(bilhete_jogador)):
+            aposta = int(bilhete_jogador[i])
+            if aposta > 60 or aposta < 0:
+                print("\n Apenas numeros entre 60 e 1")
+                numero_errado = True
+                break
+            elif aposta == bilhete_mega[i]:
+                list_acerto.append(aposta)
+                acertos += 1
             else:
-                erros.append(numero)
-        elif numero.isdigit():
-            numero = int(numero)
-            if(numero < 0):
-                print(" Apenas numeros maiores que 0")
-            elif(numero > 60):
-                print(" Apenas numeros menores que 60")
-            elif(numero in bilhete_jogador):
-                print(f" O numero {numero} ja existe escolha outro")
-            else:
-                bilhete_jogador.append(numero)
-                if numero in bilhete_mega:
-                    acerto.append(numero)
-                else:
-                    erros.append(numero)
+                list_erro.append(aposta)
+                erros += 1
 
-    resultado(bilhete_mega, bilhete_jogador, acerto, erros)
+        if numero_errado:
+            montar_bilhete()
+        else:    
+            resultado(bilhete_mega, bilhete_jogador, acertos, erros, list_acerto, list_erro)
+    else:
+        print("\n O bilhete excedeu a quantidade de numeros")
+        montar_bilhete()
 
-def resultado(mega, bilhete, acerto, erros):
-    if len(acerto) == 6:
-        print(f"\n Parabens {nome} acabou de Ganhar {premio} \n")
-    elif len(acerto) >= 3:
+def resultado(mega, bilhete, acerto, erros, list_acerto, list_erro):
+    if acerto == 6:
+        print(f"\n Parabens {nome}!! Você acertou todos os numeros da Mega Sena e levou o premio de {premio}")
+    elif acerto >= 3:
         print(f"\n Passou perto em {nome} na proxima voce ganha\n")
     else:
         print("\n Pratique mais, passou longe \n")
 
-    bilhete_mega = str(sorted(mega)).strip("[]")
-    bilhete_jogador = str(sorted(bilhete)).strip("[]")
-    acerto = str(sorted(acerto)).strip("[]")
-    erros = str(sorted(erros)).strip("[]")
+    bilhete_mega = ' '.join(sorted(mega))
+    bilhete_jogador = ' '.join(sorted(bilhete))
+    list_acerto = ' '.join(sorted(list_acerto))
+    list_erro = ' '.join(sorted(list_erro))
 
     print(f" Resultado da mega sena: {bilhete_mega}\n bilhete completo: {bilhete_jogador}\n Numeros acertado: {acerto}\n Numeros errado: {erros}\n")
     print("~="*35)
