@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-from Funcoes import crud
+from Funcoes.crudCaixa import adiciona_caixa, remove_caixa, ver_fila_caixa, ver_caixa
+from Funcoes.crudCliente import adiciona_cliente, remove_cliente, ver_cliente
+from Funcoes.crudLobby import ver_lobby
 from Uteis import msg
-from os import system
-clear = system('cls')
 
 print(msg.inicio)
 input("Aperte ENTER para iniciar... ")
@@ -10,8 +10,7 @@ print(msg.info)
 
 continua = True
 while continua:
-    continua = crud.adiciona_caixa()
-    crud.ver_caixas()
+    continua = adiciona_caixa()
 
 print(msg.menu)
 opcao = input("Digite a opção: ")
@@ -20,28 +19,28 @@ while True:
         break
     
     elif opcao == '1':
-        crud.ver_caixas()
-        crud.adiciona_caixa()
+        adiciona_caixa()
 
     elif opcao == '2':
-        crud.ver_caixas()
-        crud.remove_caixa()
+        remove_caixa()
         
     elif opcao == '3': 
-        crud.adiciona_cliente()
+        adiciona_cliente()
         
     elif opcao == '4':
-        crud.remove_cliente()
+        remove_cliente()
 
     elif opcao == '5':
-        crud.ver_caixas()
-        crud.ver_fila_caixa()
+        ver_fila_caixa()
 
     elif opcao == '6':
-        crud.ver_cliente()
+        ver_cliente()
 
     elif opcao == '7':
-        crud.ver_lobby()
+        ver_caixa()
+
+    elif opcao == '8':
+        ver_lobby()
         
     else:
         print("Opção invalida")

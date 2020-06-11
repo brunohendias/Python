@@ -11,7 +11,7 @@ class Lobby:
     	self.nom_clientes.append(cliente.nome)
 
     def liberar_lobby(self):
-        foiParaFila = self.nom_clientes[0]
+        foiParaFila = self.lobby[0]
         self.lobby.pop(0)
         self.nom_clientes.pop(0)
 
