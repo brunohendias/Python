@@ -15,7 +15,7 @@ from Funcoes.crudLobby import ver_lobby, quantidade_lobby, liberar_lobby, entrar
 from Funcoes.crudCaixa import acha_menor_fila, caixa_aleatorio, adiciona_cliente_caixa, remove_cliente_caixa
 
 def ver_clientes():
-    print(f"\nClientes: {' '.join(clientes.nom_clientes)}")
+    print(f"\nClientes: {', '.join(clientes.nom_clientes)}")
 
 def ver_cliente():
     ver_clientes()
