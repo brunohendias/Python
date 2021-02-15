@@ -9,7 +9,7 @@ def quantidade_lobby():
 	return len(lobby.nom_clientes)
 
 def clientes_lobby():
-	return ' '.join(lobby.nom_clientes)
+	return ', '.join(lobby.nom_clientes)
 
 def ver_lobby():
     print(f"\nLobby de espera: {clientes_lobby()}.")
