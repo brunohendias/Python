@@ -1,5 +1,5 @@
 from os import popen
-from models.Command import Command
+from Models.Command import Command
 
 def SOCommand(command: str):
     return popen(command).read()

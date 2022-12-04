@@ -1,5 +1,5 @@
-from models.Log import Log
-from models.ErrorLog import ErrorLog
+from Models.Log import Log
+from Models.ErrorLog import ErrorLog
 
 def log(user, msg, resp):
     open('Log/logs.txt', 'a').write(f"{Log(user, msg, resp)}\n")
