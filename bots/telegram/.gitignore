@@ -1,0 +1,4 @@
+*.session*
+logs.txt
+errors.txt
+.env
