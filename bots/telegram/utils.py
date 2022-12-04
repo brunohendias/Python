@@ -1,7 +1,7 @@
 from os import popen
 from models.Command import Command
 
-def SOCommand(command):
+def SOCommand(command: str):
     return popen(command).read()
 
 def randomPassword():

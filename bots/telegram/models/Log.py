@@ -1,8 +1,7 @@
 from datetime import datetime
 
 class Log():
-    def __init__(self, cliente, user, msg, resp):
-        self.cliente = {}
+    def __init__(self, user, msg, resp):
         self.user = user
         self.msg = msg
         self.date = datetime.now()

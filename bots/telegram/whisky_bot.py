@@ -11,9 +11,9 @@ async def message(cliente, msg):
             if command.command == lower:
                 resp = command.action()
                 break
-        log(cliente, msg.chat.first_name, msg.text, resp)
+        log(msg.chat.first_name, msg.text, resp)
         await msg.reply(resp)
     except Exception as err:
-        error(err, cliente, msg.chat.first_name, msg.text, resp)
+        error(err, msg.chat.first_name, msg.text, resp)
         
 app.run()
