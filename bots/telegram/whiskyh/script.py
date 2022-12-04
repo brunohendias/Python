@@ -1,6 +1,6 @@
 from setup import app
-from logger import log, error
 from utils import commands
+from logger import log, error
 
 @app.on_message()
 async def message(cliente, msg):
@@ -15,5 +15,5 @@ async def message(cliente, msg):
         await msg.reply(resp)
     except Exception as err:
         error(err, msg.chat.first_name, msg.text, resp)
-        
+
 app.run()
