@@ -9,7 +9,7 @@ async def message(cliente, msg):
         resp = msg.text
         for command in commands:
             if command.command == lower:
-                resp = command.action()
+                resp = command.action()()
                 break
         log(msg.chat.first_name, msg.text, resp)
         await msg.reply(resp)

@@ -1,4 +1,3 @@
 *.session*
-logs.txt
-errors.txt
+/Log/*
 .env
