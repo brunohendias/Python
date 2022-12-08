@@ -11,9 +11,9 @@ async def message(cliente, msg):
         elif "instagram.com" in lower:
             lower = 'instagram'
         
+        log(msg.chat.first_name, msg.text)
         for commmand in commands:
             if commmand.command == lower:
-                log(msg.chat.first_name, msg.text)
                 return await commmand.action(msg)
             
         return await msg.reply(msg.text)

@@ -31,8 +31,7 @@ async def downloadYoutubeVideo(msg):
 async def downloadInstagramImagePost(msg):
     removeImage()
     post = get(msg.text)
-    soup = bs(post.text, 'html.parser')
-    metas = soup.find_all('meta')
+    metas = bs(post.text, 'html.parser').find_all('meta')
     for meta in metas:
         try:
             if 'image' in meta.attrs['name']:
