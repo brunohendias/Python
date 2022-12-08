@@ -3,3 +3,5 @@ TgCrypto
 python-dotenv
 jurigged
 pytube
+beautifulsoup4
+requests
