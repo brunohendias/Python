@@ -24,10 +24,9 @@ menu = """
 
         Menu de opções
 
-    [1] Adicionar caixa     [2] Remover caixa
-    [3] Adicionar cliente   [4] Remover cliente
-    [5] Ver a fila do caixa [6] Ver um cliente
-    [7] Ver um caixa        [8] Ver o lobby
+    [1] Adicionar caixa     [2] Ver caixa
+    [3] Adicionar cliente   [4] Ver lobby
+    [5] Remover caixa       [6] Remover cliente 
 
     [ENTER] Finalizar o programa
 
